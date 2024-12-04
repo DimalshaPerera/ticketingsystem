@@ -18,13 +18,13 @@ public class Ticket {
     public Ticket() {}
 
     //Constructor
-    public Ticket(long ticketId, String eventName, BigDecimal ticketPrice, String eventDate, String eventVenue, boolean ticketStatus) {
-        this.ticketId = ticketId;
+    public Ticket( String eventName, BigDecimal ticketPrice, String eventDate, String eventVenue) {
+
         this.eventName = eventName;
         this.ticketPrice = ticketPrice;
         this.eventDate = eventDate;
         this.eventVenue = eventVenue;
-        this.ticketStatus = ticketStatus;
+        this.ticketStatus = true;
     }
 
     //setters and getters

@@ -1,35 +1,50 @@
 package ticketing.com.ticketingsystem.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 
 
-
+@Entity
 public class Vendor implements Runnable{
-    private @Id
-    @GeneratedValue long ticketId;
+    @Id
+    @GeneratedValue
+    private  long vendorId;
+    @ManyToOne
     private TicketPool ticketPool;
     private int totalTickets; // total tickets vendors will sell
     private int ticketReleaseRate;  //frequency of tickets getting added
 
-    public Vendor(long ticketId, TicketPool ticketPool, int totalTickets, int ticketReleaseRate) {
-        this.ticketId = ticketId;
+    public TicketPool getTicketPool() {
+        return ticketPool;
+    }
+
+    public void setTicketPool(TicketPool ticketPool) {
+        this.ticketPool = ticketPool;
+    }
+
+    public Vendor() {}
+
+    public Vendor(long vendorId, TicketPool ticketPool, int totalTickets, int ticketReleaseRate) {
+        this.vendorId = vendorId;
         this.ticketPool = ticketPool;
         this.totalTickets = totalTickets;
         this.ticketReleaseRate = ticketReleaseRate;
     }
 
+
+
     public void run(){
         for (int i = 0; i < totalTickets; i++) {
-//                Ticket ticket = new Ticket(, eventName, ticketPrice, eventDate, eventVenue, true);
-//                ticketPool.addTicket(ticket);
-//                System.out.println("Vendor added: " + ticket);
-//                try {
-//                    Thread.sleep(500);
-//                } catch (InterruptedException e) {
+                Ticket ticket = new Ticket("Spandana", new BigDecimal("1000"), "2024-12-15", "Havelock grounds");
+                ticketPool.addTicket(ticket);
+                System.out.println("Vendor added: " + ticket);
+                try {
+                    Thread.sleep(ticketReleaseRate*1000);
+                } catch (InterruptedException e) {
 //                    Thread.currentThread().interrupt();
-//                    System.out.println("Vendor interrupted");
-//                }
+                    throw new RuntimeException(e.getMessage());
+                }
           }
         }
 }
