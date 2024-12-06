@@ -18,8 +18,7 @@ public class Ticket {
     public Ticket() {}
 
     //Constructor
-    public Ticket( String eventName, BigDecimal ticketPrice, String eventDate, String eventVenue) {
-
+    public Ticket(String eventName, BigDecimal ticketPrice, String eventDate, String eventVenue) {
         this.eventName = eventName;
         this.ticketPrice = ticketPrice;
         this.eventDate = eventDate;

@@ -1,6 +1,8 @@
 package ticketing.com.ticketingsystem.models;
 
 import jakarta.persistence.*;
+import ticketing.com.ticketingsystem.repositories.TicketRepository;
+import ticketing.com.ticketingsystem.services.TicketService;
 
 import java.math.BigDecimal;
 
@@ -11,6 +13,7 @@ public class Vendor implements Runnable{
     @GeneratedValue
     private  long vendorId;
     @ManyToOne
+    @JoinColumn
     private TicketPool ticketPool;
     private int totalTickets; // total tickets vendors will sell
     private int ticketReleaseRate;  //frequency of tickets getting added
@@ -32,13 +35,20 @@ public class Vendor implements Runnable{
         this.ticketReleaseRate = ticketReleaseRate;
     }
 
+    public long getVendorId() {
+        return vendorId;
+    }
 
+    public void setVendorId(long vendorId) {
+        this.vendorId = vendorId;
+    }
 
     public void run(){
         for (int i = 0; i < totalTickets; i++) {
                 Ticket ticket = new Ticket("Spandana", new BigDecimal("1000"), "2024-12-15", "Havelock grounds");
+//                ticket=TicketService.saveTicket(ticket);
                 ticketPool.addTicket(ticket);
-                System.out.println("Vendor added: " + ticket);
+
                 try {
                     Thread.sleep(ticketReleaseRate*1000);
                 } catch (InterruptedException e) {

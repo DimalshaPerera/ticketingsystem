@@ -8,11 +8,13 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.SortedMap;
 
 @Entity
 public class TicketPool {
-    private @Id @GeneratedValue long ticketPoolId;
-    @OneToMany //WRITE A COMMENT
+    @Id @GeneratedValue
+    private long ticketPoolId;
+    @OneToMany // A TicketPool can have many Tickets.
     private List<Ticket> ticketsList;
     private int maximumCapacity;
 
@@ -38,9 +40,11 @@ public class TicketPool {
 
         }
         ticketsList.add(ticket);
-        ticketPoolId++;
-        System.out.println(ticket+"Ticket added to the pool");
         notifyAll(); //notifying waiting threads
+        System.out.println(Thread.currentThread().getName()+" added "+ticket+ " to the pool and the current size is "+ticketsList.size());
+
+
+
     }
 
     //Buy ticked method for customers to use
@@ -53,9 +57,9 @@ public class TicketPool {
                 throw new RuntimeException(e.getMessage());
             }
         }
-        Ticket ticket=ticketsList.removeFirst();
-        System.out.println(ticket+"Ticket bought from pool");
+        Ticket ticket=ticketsList.remove(0);
         notifyAll(); //Notifying waiting threads
+        System.out.println( Thread.currentThread().getName()+" has bought ticket "+ticket+ " and the current size is "+ticketsList.size());
         return ticket;
     }
 
