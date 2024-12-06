@@ -25,8 +25,8 @@ public class Vendor implements Runnable{
 
     public Vendor() {}
 
-    public Vendor(long vendorId, TicketPool ticketPool, int totalTickets, int ticketReleaseRate) {
-        this.vendorId = vendorId;
+    public Vendor( TicketPool ticketPool, int totalTickets, int ticketReleaseRate) {
+
         this.ticketPool = ticketPool;
         this.totalTickets = totalTickets;
         this.ticketReleaseRate = ticketReleaseRate;

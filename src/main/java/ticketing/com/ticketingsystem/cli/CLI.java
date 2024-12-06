@@ -1,11 +1,14 @@
 package ticketing.com.ticketingsystem.cli;
+import org.springframework.stereotype.Component;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+@Component
 public class CLI {
-    public static void main(String[] args) {
-        System.out.println("Welcome to ticketing system");
+    public Configuration start(){
         boolean isAValidInput = true;
+        Configuration configuration=null;
         try (Scanner input = new Scanner(System.in)) {
             while (isAValidInput) {
                 System.out.println("enter y to continue or q to exist...");
@@ -15,7 +18,7 @@ public class CLI {
                     System.exit(0);
                 } else if (choice.equalsIgnoreCase("y")) {
                     isAValidInput = false;
-                    StartTicketingSystem(input);
+                    configuration = StartTicketingSystem(input);
                 } else {
                     System.out.println("Invalid choice please try again");
                 }
@@ -23,11 +26,11 @@ public class CLI {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-        }
+        } return configuration;
 
     }
 
-    private static void StartTicketingSystem(Scanner input) {
+    private Configuration StartTicketingSystem(Scanner input) {
         while (true) {
             try {
                 System.out.print("Enter Total number of tickets: ");
@@ -41,17 +44,7 @@ public class CLI {
 
                 Configuration configuration = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
                 configuration.saveFile("configuration.json");
-                Configuration loadedConfiguration = Configuration.loadFile("configuration.json");
-
-                if (loadedConfiguration != null) {
-                    System.out.println("Loading Configuration from JSON:");
-                    System.out.println("Total Tickets: " + loadedConfiguration.getTotalTickets());
-                    System.out.println("Ticket Release Rate: " + loadedConfiguration.getTicketReleaseRate());
-                    System.out.println("Customer Retrieval Rate: " + loadedConfiguration.getCustomerRetrievalRate());
-                    System.out.println("Max Ticket Capacity: " + loadedConfiguration.getMaxTicketCapacity());
-                }
-
-                break;
+                return configuration;
 
             } catch (InputMismatchException e) {
                 System.out.println(" Please enter a valid integer.");
@@ -64,7 +57,7 @@ public class CLI {
 
     }
 
-    private static int getValidInteger(Scanner input) {
+    private  int getValidInteger(Scanner input) {
         int number;
         while (true) {
             try {
