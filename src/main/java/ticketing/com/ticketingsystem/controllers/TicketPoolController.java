@@ -2,8 +2,11 @@ package ticketing.com.ticketingsystem.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import ticketing.com.ticketingsystem.models.TicketPool;
 import ticketing.com.ticketingsystem.services.TicketPoolService;
+
+import java.util.List;
 
 @RestController
 public class TicketPoolController {
@@ -11,7 +14,9 @@ public class TicketPoolController {
        public TicketPoolController(TicketPoolService ticketPoolService) {
            this.ticketPoolService = ticketPoolService;
        }
-    @GetMapping("/testing-tp")
-    public String test() {return "API IS WORKING ";}
+    @GetMapping("/ticketPool")
+    public List<TicketPool> getAllTicketPool() {
+        return ticketPoolService.getAllTicketPools();
+    }
 
 }

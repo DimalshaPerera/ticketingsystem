@@ -1,9 +1,7 @@
 package ticketing.com.ticketingsystem.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import ticketing.com.ticketingsystem.services.TicketService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,13 +15,19 @@ public class TicketPool {
     @OneToMany // A TicketPool can have many Tickets.
     private List<Ticket> ticketsList;
     private int maximumCapacity;
+    @Transient private TicketService ticketService;
 
 
     public TicketPool() {}
 
-    public TicketPool(int maximumCapacity) {
+    public TicketPool(int maximumCapacity, TicketService ticketService) {
         this.maximumCapacity = maximumCapacity;
         this.ticketsList= Collections.synchronizedList(new ArrayList<>());
+        this.ticketService = ticketService;
+    }
+    // Setter for ticketService
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
     }
 
 
@@ -58,8 +62,14 @@ public class TicketPool {
             }
         }
         Ticket ticket=ticketsList.remove(0);
+        ticket.setTicketStatus("Sold");
+        // Save the updated ticket status to database
+        if (ticketService != null) {
+            ticket = ticketService.saveTicket(ticket);
+        }
         notifyAll(); //Notifying waiting threads
         System.out.println( Thread.currentThread().getName()+" has bought ticket "+ticket+ " and the current size is "+ticketsList.size());
+
         return ticket;
     }
 

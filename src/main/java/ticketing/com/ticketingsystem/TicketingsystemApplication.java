@@ -7,9 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import ticketing.com.ticketingsystem.cli.CLI;
 import ticketing.com.ticketingsystem.cli.Configuration;
-import ticketing.com.ticketingsystem.models.Customer;
 import ticketing.com.ticketingsystem.models.TicketPool;
-import ticketing.com.ticketingsystem.models.Vendor;
 import ticketing.com.ticketingsystem.services.CustomerService;
 import ticketing.com.ticketingsystem.services.TicketPoolService;
 import ticketing.com.ticketingsystem.services.TicketService;
@@ -22,13 +20,15 @@ public class TicketingsystemApplication implements CommandLineRunner {
 	private final VendorService vendorService;
 	private final TicketPoolService ticketPoolService;
 	private final TicketService ticketService;
+	private final CustomerService customerService;
 
 
-	public TicketingsystemApplication(CLI cli, VendorService vendorService, TicketPoolService ticketPoolService, TicketService ticketService) {
+	public TicketingsystemApplication(CLI cli, VendorService vendorService, TicketPoolService ticketPoolService, TicketService ticketService, CustomerService customerService) {
 		this.cli = cli;
 		this.vendorService = vendorService;
         this.ticketPoolService = ticketPoolService;
         this.ticketService = ticketService;
+        this.customerService = customerService;
     }
 	public static void main(String[] args) {
 		SpringApplication.run(TicketingsystemApplication.class, args);
@@ -49,22 +49,12 @@ public class TicketingsystemApplication implements CommandLineRunner {
 			int ticketReleaseRate = configuration.getTicketReleaseRate();
 			int customerRetrievalRate = configuration.getCustomerRetrievalRate();
 
-			TicketPool ticketPool = new TicketPool(maxTicketCapacity);
+			TicketPool ticketPool = new TicketPool(maxTicketCapacity,ticketService);
 			ticketPool = ticketPoolService.saveTicketPool(ticketPool);
-			Vendor[] vendors = new Vendor[10];		//Array of vendors
 
-			for(int i=0; i<vendors.length; i++){
-				vendors[i] = new Vendor(ticketPool,totalTickets,ticketReleaseRate);
-				vendorService.saveVendor(vendors[i]);
-				Thread vendorThread = new Thread(vendors[i],"Vendor: "+i);
-				vendorThread.start();
-			}
-			Customer[] customers = new Customer[10];//An array of customers
-			for(int i=0; i<customers.length; i++){
-				customers[i] = new Customer(i,ticketPool,customerRetrievalRate,20);
-				Thread customerThread = new Thread(customers[i],"Customer: "+i);
-				customerThread.start();
-			}
+			vendorService.StartVendorThreads(ticketPool,totalTickets,ticketReleaseRate);
+			customerService.StartCustomerThread(ticketPool,customerRetrievalRate,20);
+
 
 	}else{
 			System.out.println("No configuration loaded!");

@@ -13,21 +13,19 @@ public class VendorController {
     public VendorController(VendorService vendorService) {
         this.vendorService = vendorService;
     }
-
-    @GetMapping("/testing")
-    public String test() {return "API IS WORKING ";}
-
-    //Creating a new vendor
-    @PostMapping
-    public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
-        Vendor saveVendor=vendorService.saveVendor(vendor);
-        return ResponseEntity.ok().body(saveVendor);
-    }
-
     // Get all vendors
-    @GetMapping("/get-all-vendors")
+    @GetMapping("/vendors")
     public List<Vendor> getAllVendors() {
         return vendorService.getAllVendors();
     }
+
+
+    //Creating a new vendor
+//    @PostMapping
+//    public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
+//        Vendor saveVendor=vendorService.saveVendor(vendor);
+//        return ResponseEntity.ok().body(saveVendor);
+//    }
+
 }
 

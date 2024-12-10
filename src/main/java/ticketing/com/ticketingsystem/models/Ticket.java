@@ -13,7 +13,7 @@ public class Ticket {
     private BigDecimal ticketPrice;
     private String eventDate;
     private String eventVenue;
-    private boolean ticketStatus; // true = available, false = sold out
+    private String ticketStatus;
 
     public Ticket() {}
 
@@ -23,7 +23,7 @@ public class Ticket {
         this.ticketPrice = ticketPrice;
         this.eventDate = eventDate;
         this.eventVenue = eventVenue;
-        this.ticketStatus = true;
+        this.ticketStatus ="available";
     }
 
     //setters and getters
@@ -66,11 +66,11 @@ public class Ticket {
         this.eventVenue = eventVenue;
     }
 
-    public boolean isTicketStatus() {
+    public String isTicketStatus() {
         return ticketStatus;
     }
 
-    public void setTicketStatus(boolean ticketStatus) {
+    public void setTicketStatus(String ticketStatus) {
         this.ticketStatus = ticketStatus;
     }
 

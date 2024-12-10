@@ -2,7 +2,10 @@ package ticketing.com.ticketingsystem.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ticketing.com.ticketingsystem.models.Ticket;
 import ticketing.com.ticketingsystem.services.TicketService;
+
+import java.util.List;
 
 @RestController
 public class TicketController {
@@ -11,9 +14,9 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    @GetMapping("ok")
-    public String ok() {
-        return "ok";
+    @GetMapping("tickets")
+    public List<Ticket> getTickets() {
+        return ticketService.getAllTickets();
     }
 
 }
