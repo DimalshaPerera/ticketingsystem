@@ -12,6 +12,7 @@ public class Customer implements Runnable {
     private TicketPool ticketPool; //shared between customers and vendors
     private int customerRetrieveRate; //frequency which tickets will be removed from the pool
     private int quantity;  //quantity the customer willing to buy
+    private int numOfCustomers;
 
     @Transient
     private CustomerService customerService;

@@ -75,7 +75,9 @@ public class TicketPool {
 
     //A method to get the current size of the pool
     public synchronized int getAvailableTickets() {
+
         return ticketsList.size();
+
     }
 
 }

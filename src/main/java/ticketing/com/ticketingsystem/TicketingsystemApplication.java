@@ -52,12 +52,15 @@ public class TicketingsystemApplication implements CommandLineRunner {
 			int totalTickets=configuration.getTotalTickets();
 			int ticketReleaseRate = configuration.getTicketReleaseRate();
 			int customerRetrievalRate = configuration.getCustomerRetrievalRate();
+			int numOfCustomers = configuration.getNumOfCustomers();
+			int numOfVendors=configuration.getNumOfVendors();
 
 			TicketPool ticketPool = new TicketPool(maxTicketCapacity,ticketService);
 			ticketPool = ticketPoolService.saveTicketPool(ticketPool);
 
-			vendorService.StartVendorThreads(ticketPool,totalTickets,ticketReleaseRate);
-			customerService.StartCustomerThread(ticketPool,customerRetrievalRate,20);
+			vendorService.StartVendorThreads(ticketPool,totalTickets,ticketReleaseRate,numOfVendors);
+			customerService.StartCustomerThread(ticketPool,customerRetrievalRate,20,numOfCustomers);
+            ticketPool.getAvailableTickets();
 
 
 	}else{

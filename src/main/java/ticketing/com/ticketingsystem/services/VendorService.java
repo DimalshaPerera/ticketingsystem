@@ -29,8 +29,8 @@ public class VendorService {
         return vendorRepository.findAll();
     }
 
-    public void StartVendorThreads(TicketPool ticketPool, int totalTickets, int ticketReleaseRate) {
-        Vendor[] vendors = new Vendor[10];		//Array of vendors
+    public void StartVendorThreads(TicketPool ticketPool, int totalTickets, int ticketReleaseRate,int numOfVendors) {
+        Vendor[] vendors = new Vendor[numOfVendors];		//Array of vendors
 
         for(int i=0; i<vendors.length; i++){
             vendors[i] = new Vendor(ticketPool,totalTickets,ticketReleaseRate,ticketService,this);

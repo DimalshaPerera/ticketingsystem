@@ -12,12 +12,16 @@ public class Configuration implements Serializable {
     private int ticketReleaseRate;
     private int customerRetrievalRate;
     private int maxTicketCapacity;
+    private int numOfCustomers;
+    private int numOfVendors;
 
-    public Configuration(int totalTickets, int ticketReleaseRate, int customerRetrievalRate, int maxTicketCapacity) {
+    public Configuration(int totalTickets, int ticketReleaseRate, int customerRetrievalRate, int maxTicketCapacity, int numOfCustomers, int numofVendors) {
         this.totalTickets = totalTickets;
         this.ticketReleaseRate = ticketReleaseRate;
         this.customerRetrievalRate = customerRetrievalRate;
         this.maxTicketCapacity = maxTicketCapacity;
+        this.numOfCustomers = numOfCustomers;
+        this.numOfVendors = numofVendors;
     }
 
     //Getters and setters
@@ -46,6 +50,22 @@ public class Configuration implements Serializable {
         this.maxTicketCapacity = maxTicketCapacity;
     }
 
+    public int getNumOfCustomers() {
+        return numOfCustomers;
+    }
+
+    public void setNumOfCustomers(int numOfCustomers) {
+        this.numOfCustomers = numOfCustomers;
+    }
+
+    public int getNumOfVendors() {
+        return numOfVendors;
+    }
+
+    public void setNumOfVendors(int numOfVendors) {
+        this.numOfVendors = numOfVendors;
+    }
+
     @Override
     public String toString() {
         return "Configuration{" +
@@ -53,8 +73,11 @@ public class Configuration implements Serializable {
                 ", ticketReleaseRate=" + ticketReleaseRate +
                 ", customerRetrievalRate=" + customerRetrievalRate +
                 ", maxTicketCapacity=" + maxTicketCapacity +
+                ", numOfCustomers=" + numOfCustomers +
+                ", numOfVendors=" + numOfVendors +
                 '}';
     }
+
 
     public void saveFile(String filename) {
         try(Writer writer = new FileWriter(filename)) {

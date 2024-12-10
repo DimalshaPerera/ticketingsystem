@@ -22,5 +22,10 @@ public class TicketPoolService {
         return ticketPoolRepository.findAll();
     }
 
+    public int getAvailableTickets(TicketPool ticketPool) {
+        return ticketPool.getAvailableTickets();
+
+    }
+
 
 }

@@ -23,8 +23,8 @@ public class CustomerService {
         return customerRepoistory.findAll();
     }
 
-    public void StartCustomerThread(TicketPool ticketPool,int customerRetrievalRate,int quantity) {
-        Customer[] customers = new Customer[10];//An array of customers
+    public void StartCustomerThread(TicketPool ticketPool,int customerRetrievalRate,int quantity,int numOfCustomers) {
+        Customer[] customers = new Customer[numOfCustomers];//An array of customers
         for(int i=0; i<customers.length; i++){
             customers[i] = new Customer(ticketPool,customerRetrievalRate,quantity,this);
             Thread customerThread = new Thread(customers[i],"Customer: "+i);

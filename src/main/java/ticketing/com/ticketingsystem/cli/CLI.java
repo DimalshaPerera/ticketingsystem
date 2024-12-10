@@ -42,8 +42,12 @@ public class CLI {
                 int customerRetrievalRate = getValidInteger(input);
                 System.out.print("Enter maximum ticket capacity:");
                 int maxTicketCapacity = getValidInteger(input);
+                System.out.print("Enter the number of customers:");
+                int numOfCustomers = getValidInteger(input);
+                System.out.println("Enter the number of Vendors:");
+                int numOfVendors = getValidInteger(input);
 
-                Configuration configuration = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
+                Configuration configuration = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity, numOfCustomers, numOfVendors);
                 configuration.saveFile("configuration.json");
                 return configuration;
 

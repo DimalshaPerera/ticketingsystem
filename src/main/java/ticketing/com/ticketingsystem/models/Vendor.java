@@ -18,7 +18,7 @@ public class Vendor implements Runnable{
     @ManyToOne
     @JoinColumn
     private TicketPool ticketPool;
-    private int totalTickets; // total tickets vendors will sell
+    private int totalTickets; // total tickets one vendor will sell
     private int ticketReleaseRate;  //frequency of tickets getting added
     @Transient //dont save to the database and is used only in the application for ticket-related operations.
     private TicketService ticketService;
