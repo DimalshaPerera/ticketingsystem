@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import ticketing.com.ticketingsystem.cli.CLI;
 import ticketing.com.ticketingsystem.cli.Configuration;
+
 import ticketing.com.ticketingsystem.models.TicketPool;
 import ticketing.com.ticketingsystem.services.CustomerService;
 import ticketing.com.ticketingsystem.services.TicketPoolService;
@@ -23,24 +24,27 @@ public class TicketingsystemApplication implements CommandLineRunner {
 	private final CustomerService customerService;
 
 
+
 	public TicketingsystemApplication(CLI cli, VendorService vendorService, TicketPoolService ticketPoolService, TicketService ticketService, CustomerService customerService) {
 		this.cli = cli;
 		this.vendorService = vendorService;
         this.ticketPoolService = ticketPoolService;
         this.ticketService = ticketService;
         this.customerService = customerService;
+
     }
 	public static void main(String[] args) {
 		SpringApplication.run(TicketingsystemApplication.class, args);
 	}
 	@Override
 	public void run(String... args) {
-		System.out.println("Welcome to the ticketing system!");
 		// Start CLI and get configuration
 		Configuration configuration = cli.start();
 
 		if (configuration != null) {
 			System.out.println("Loaded configuration:");
+
+
 //			System.out.println(configuration);
 
 			// Use the configuration to initialize the system

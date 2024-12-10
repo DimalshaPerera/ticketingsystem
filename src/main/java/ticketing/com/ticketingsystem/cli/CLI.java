@@ -9,6 +9,7 @@ public class CLI {
     public Configuration start(){
         boolean isAValidInput = true;
         Configuration configuration=null;
+        System.out.println("Welcome to the ticketing system!");
         try (Scanner input = new Scanner(System.in)) {
             while (isAValidInput) {
                 System.out.println("enter y to continue or q to exist...");
